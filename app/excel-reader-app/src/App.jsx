@@ -40,7 +40,7 @@ function App() {
   };
 
   const enviarPedidos = async (pedidosFiltrados) => {
-    const response = await fetch("http://localhost:3001/consultar-envios", {
+    const response = await fetch("https://kivoo-bot.onrender.com/consultar-envios", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -140,14 +140,23 @@ function App() {
                       pedido.Whatsapp)
                   ) {
                     mensaje = `Hola ${pedido.Cliente}, Me acaban de decir los chicos de correo que ya te entregaron el paquete 🙏🏻 por favor realizas la transferencia al siguiente:  CVU: 0000147800000057214968 el importe total es de ${pedido.Monto} 💵 *DESPUES ENVIAME EL COMPROBANTE POR FAVOR 🧾*`;
-                  } else if (pedido["Estado actual"] === "EN ESPERA EN SUCURSAL") {
+                  } else if (
+                    pedido["Estado actual"] === "EN ESPERA EN SUCURSAL"
+                  ) {
                     mensaje = `Sucursal 🏤 ¡Hola ${pedido.Cliente}! 😊 Tu pedido ya está esperando para ser retirado en una sucursal. En un ratito te vamos a avisar exactamente cuál es la sucursal 📍. Tenés 3 días para ir a buscarlo, ¡gracias por tu compra! 🙌`;
                   }
                   const urlWhatsapp = `https://api.whatsapp.com/send/?phone=${
                     pedido.Whatsapp
                   }&text=${encodeURIComponent(mensaje)}`;
                   return (
-                    <tr key={index} style={atendidos[pedido["ID Pedido"]] ? { background: "#b4ffb4" } : {}}>
+                    <tr
+                      key={index}
+                      style={
+                        atendidos[pedido["ID Pedido"]]
+                          ? { background: "#b4ffb4" }
+                          : {}
+                      }
+                    >
                       <td>
                         <input
                           type="checkbox"
@@ -186,7 +195,8 @@ function App() {
                         {!(
                           (pedido["Estado actual"] === "ENTREGADO" ||
                             pedido["Estado actual"] === "ENTREGA EN SUCURSAL" ||
-                            pedido["Estado actual"] === "EN ESPERA EN SUCURSAL") &&
+                            pedido["Estado actual"] ===
+                              "EN ESPERA EN SUCURSAL") &&
                           pedido.Whatsapp
                         ) && "-"}
                       </td>
@@ -227,7 +237,14 @@ function App() {
                   pedido.Whatsapp
                 }&text=${encodeURIComponent(mensaje)}`;
                 return (
-                  <tr key={index} style={atendidos[pedido["ID Pedido"]] ? { background: "#e0ffe0" } : {}}>
+                  <tr
+                    key={index}
+                    style={
+                      atendidos[pedido["ID Pedido"]]
+                        ? { background: "#e0ffe0" }
+                        : {}
+                    }
+                  >
                     <td>
                       <input
                         type="checkbox"

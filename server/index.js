@@ -10,7 +10,7 @@ app.use(express.json());
 app.post("/consultar-envios", async (req, res) => {
   const pedidos = req.body; // Esperamos un array de objetos con TN, Cliente, etc.
 
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
   const estadosPermitidos = [
